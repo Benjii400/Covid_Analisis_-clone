@@ -1,0 +1,23 @@
+#container {
+    height: 500px;
+    min-width: 310px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+  }
+.scroll-bg{
+  max-height:600px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+#ul{
+  list-style: none;
+}
+#worldMap{
+  height: 700px;
+}
