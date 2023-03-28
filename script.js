@@ -399,302 +399,301 @@ var url3 = ("https://api.covid19api.com/world?from=2020-03-01T00:00:00Z&to=2023-
 fetch(url3)
   .then(response => response.json())
   .then(data => {
-    let obj3 = JSON.stringify(data);
-    localStorage.setItem("obj3", obj3)
+    
+    for (var i = 0; i < data.length; i++) {
+      year1 = data[i].Date;
+    
+    
+    
+    
+      if (year1.slice(0, 7) == `2021-01`) {
+        year2021Jan = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-0`) {
+        year2021Feb = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-03`) {
+        year2021Mar = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-04`) {
+        year2021Apr = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-05`) {
+        year2021May = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-06`) {
+        year2021Jun = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-07`) {
+        year2021Jul = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-08`) {
+        year2021Aug = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-09`) {
+        year2021Sep = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-10`) {
+        year2021Oct = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-11`) {
+        year2021Nov = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2021-12`) {
+        year2021Dec = data[i].TotalConfirmed;
+      }
+    
+    
+    
+      else if (year1.slice(0, 7) == `2022-01`) {
+        year2022Jan = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-0`) {
+        year2022Feb = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-03`) {
+        year2022Mar = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-04`) {
+        year2022Apr = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-05`) {
+        year2022May = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-06`) {
+        year2022Jun = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-07`) {
+        year2022Jul = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-08`) {
+        year2022Aug = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-09`) {
+        year2022Sep = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2022-10`) {
+        year2022Oct = data[i].TotalConfirmed;
+    
+      }
+      else if (year1.slice(0, 7) == `2022-11`) {
+        year2022Nov = data[i].TotalConfirmed;
+    
+      }
+      else if (year1.slice(0, 7) == `2022-12`) {
+        year2022Dec = data[i].TotalConfirmed;
+    
+      }
+    
+    
+    
+    
+      else if (year1.slice(0, 7) == `2023-01`) {
+        year2023Jan = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-0`) {
+        year2023Feb = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-03`) {
+        year2023Mar = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-04`) {
+        year2023Apr = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-05`) {
+        year2023May = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-06`) {
+        year2023Jun = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-07`) {
+        year2023Jul = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-08`) {
+        year2023Aug = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-09`) {
+        year2023Sep = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-10`) {
+        year2023Oct = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-11`) {
+        year2023Nov = data[i].TotalConfirmed;
+      }
+      else if (year1.slice(0, 7) == `2023-12`) {
+        year2023Dec = data[i].TotalConfirmed;
+      }
+    
+    }
+    
+    
+    
+    
+    
+    
+    // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
+    Highcharts.chart('graph2021', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Monthly Analsis of world 2021'
+      },
+      subtitle: {
+        text: ''
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        accessibility: {
+          description: 'Months of the year'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'People'
+        },
+        labels: {
+          formatter: function () {
+            return this.value;
+          }
+        }
+      },
+      tooltip: {
+        crosshairs: true,
+        shared: true
+      },
+      plotOptions: {
+        spline: {
+          marker: {
+            radius: 4,
+            lineColor: 'red',
+            lineWidth: 1
+          }
+        }
+      },
+      series: [{
+        name: 'World',
+        marker: {
+          symbol: 'square'
+        },
+        data: [year2021Jan, year2021Feb, year2021Mar, year2021Apr, year2021May, year2021Jun, year2021Jul, year2021Aug, year2021Sep, year2021Oct, year2021Nov, year2021Dec],
+      }]
+    });
+    
+    
+    // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
+    Highcharts.chart('graph2022', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Monthly Analsis of world 2022'
+      },
+      subtitle: {
+        text: ''
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        accessibility: {
+          description: 'Months of the year'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'People'
+        },
+        labels: {
+          formatter: function () {
+            return this.value;
+          }
+        }
+      },
+      tooltip: {
+        crosshairs: true,
+        shared: true
+      },
+      plotOptions: {
+        spline: {
+          marker: {
+            radius: 4,
+            lineColor: 'red',
+            lineWidth: 1
+          }
+        }
+      },
+      series: [{
+        name: 'World',
+        marker: {
+          symbol: 'square'
+        },
+        data: [year2022Jan, year2022Feb, year2022Mar, year2022Apr, year2022May, year2022Jun, year2022Jul, year2022Aug, year2022Sep, year2022Oct, year2022Nov, year2022Dec]
+    
+      }]
+    });
+    
+    
+    // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
+    Highcharts.chart('graph2023', {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text: 'Monthly Analsis of world 2023'
+      },
+      subtitle: {
+        text: ''
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        accessibility: {
+          description: 'Months of the year'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'People'
+        },
+        labels: {
+          formatter: function () {
+            return this.value;
+          }
+        }
+      },
+      tooltip: {
+        crosshairs: true,
+        shared: true
+      },
+      plotOptions: {
+        spline: {
+          marker: {
+            radius: 4,
+            lineColor: 'red',
+            lineWidth: 1
+          }
+        }
+      },
+      series: [{
+        name: 'World',
+        marker: {
+          symbol: 'square'
+        },
+        data: [year2023Jan, year2023Feb, year2023Mar, year2023Apr, year2023May, year2023Jun, year2023Jul, year2023Aug, year2023Sep, year2023Oct, year2023Nov, year2023Dec]
+    
+      }]
+    });
+
   })
   .catch(error => console.error(error))
 
-let object3 = localStorage.getItem("obj3");
-var summary3 = JSON.parse(object3);
-
-
-
-
-for (var i = 0; i < summary3.length; i++) {
-  year1 = summary3[i].Date;
-
-
-
-
-  if (year1.slice(0, 7) == `2021-01`) {
-    year2021Jan = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-0`) {
-    year2021Feb = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-03`) {
-    year2021Mar = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-04`) {
-    year2021Apr = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-05`) {
-    year2021May = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-06`) {
-    year2021Jun = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-07`) {
-    year2021Jul = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-08`) {
-    year2021Aug = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-09`) {
-    year2021Sep = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-10`) {
-    year2021Oct = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-11`) {
-    year2021Nov = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2021-12`) {
-    year2021Dec = summary3[i].TotalConfirmed;
-  }
-
-
-
-  else if (year1.slice(0, 7) == `2022-01`) {
-    year2022Jan = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-0`) {
-    year2022Feb = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-03`) {
-    year2022Mar = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-04`) {
-    year2022Apr = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-05`) {
-    year2022May = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-06`) {
-    year2022Jun = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-07`) {
-    year2022Jul = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-08`) {
-    year2022Aug = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-09`) {
-    year2022Sep = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2022-10`) {
-    year2022Oct = summary3[i].TotalConfirmed;
-
-  }
-  else if (year1.slice(0, 7) == `2022-11`) {
-    year2022Nov = summary3[i].TotalConfirmed;
-
-  }
-  else if (year1.slice(0, 7) == `2022-12`) {
-    year2022Dec = summary3[i].TotalConfirmed;
-
-  }
-
-
-
-
-  else if (year1.slice(0, 7) == `2023-01`) {
-    year2023Jan = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-0`) {
-    year2023Feb = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-03`) {
-    year2023Mar = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-04`) {
-    year2023Apr = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-05`) {
-    year2023May = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-06`) {
-    year2023Jun = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-07`) {
-    year2023Jul = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-08`) {
-    year2023Aug = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-09`) {
-    year2023Sep = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-10`) {
-    year2023Oct = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-11`) {
-    year2023Nov = summary3[i].TotalConfirmed;
-  }
-  else if (year1.slice(0, 7) == `2023-12`) {
-    year2023Dec = summary3[i].TotalConfirmed;
-  }
-
-}
 
 
 
 
 
-
-// Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
-Highcharts.chart('graph2021', {
-  chart: {
-    type: 'spline'
-  },
-  title: {
-    text: 'Monthly Analsis of world 2021'
-  },
-  subtitle: {
-    text: ''
-  },
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    accessibility: {
-      description: 'Months of the year'
-    }
-  },
-  yAxis: {
-    title: {
-      text: 'People'
-    },
-    labels: {
-      formatter: function () {
-        return this.value;
-      }
-    }
-  },
-  tooltip: {
-    crosshairs: true,
-    shared: true
-  },
-  plotOptions: {
-    spline: {
-      marker: {
-        radius: 4,
-        lineColor: 'red',
-        lineWidth: 1
-      }
-    }
-  },
-  series: [{
-    name: 'World',
-    marker: {
-      symbol: 'square'
-    },
-    data: [year2021Jan, year2021Feb, year2021Mar, year2021Apr, year2021May, year2021Jun, year2021Jul, year2021Aug, year2021Sep, year2021Oct, year2021Nov, year2021Dec],
-  }]
-});
-
-
-// Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
-Highcharts.chart('graph2022', {
-  chart: {
-    type: 'spline'
-  },
-  title: {
-    text: 'Monthly Analsis of world 2022'
-  },
-  subtitle: {
-    text: ''
-  },
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    accessibility: {
-      description: 'Months of the year'
-    }
-  },
-  yAxis: {
-    title: {
-      text: 'People'
-    },
-    labels: {
-      formatter: function () {
-        return this.value;
-      }
-    }
-  },
-  tooltip: {
-    crosshairs: true,
-    shared: true
-  },
-  plotOptions: {
-    spline: {
-      marker: {
-        radius: 4,
-        lineColor: 'red',
-        lineWidth: 1
-      }
-    }
-  },
-  series: [{
-    name: 'World',
-    marker: {
-      symbol: 'square'
-    },
-    data: [year2022Jan, year2022Feb, year2022Mar, year2022Apr, year2022May, year2022Jun, year2022Jul, year2022Aug, year2022Sep, year2022Oct, year2022Nov, year2022Dec]
-
-  }]
-});
-
-
-// Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
-Highcharts.chart('graph2023', {
-  chart: {
-    type: 'spline'
-  },
-  title: {
-    text: 'Monthly Analsis of world 2023'
-  },
-  subtitle: {
-    text: ''
-  },
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    accessibility: {
-      description: 'Months of the year'
-    }
-  },
-  yAxis: {
-    title: {
-      text: 'People'
-    },
-    labels: {
-      formatter: function () {
-        return this.value;
-      }
-    }
-  },
-  tooltip: {
-    crosshairs: true,
-    shared: true
-  },
-  plotOptions: {
-    spline: {
-      marker: {
-        radius: 4,
-        lineColor: 'red',
-        lineWidth: 1
-      }
-    }
-  },
-  series: [{
-    name: 'World',
-    marker: {
-      symbol: 'square'
-    },
-    data: [year2023Jan, year2023Feb, year2023Mar, year2023Apr, year2023May, year2023Jun, year2023Jul, year2023Aug, year2023Sep, year2023Oct, year2023Nov, year2023Dec]
-
-  }]
-});
 
 
 
