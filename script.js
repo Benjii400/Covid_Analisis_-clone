@@ -1,117 +1,112 @@
 var url = ("https://api.covid19api.com/summary");
-//   fetch(url)
-//     .then(response => response.json())
-//     .then(data => {
-//         let obj = JSON.stringify(data);
-//         localStorage.setItem("obj",obj)
-//     })
-//     .catch(error => console.error(error))
-
-let object = localStorage.getItem("obj");
-var summary = JSON.parse(object);
-
 var newObj = new Array();
-
-
-for (var i = 0; i < summary.Countries.length; i++) {
-  newObj[i] = { code: summary.Countries[i].CountryCode, total: summary.Countries[i].TotalConfirmed }
-}
- 
- 
-
-var worldCard =`<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Confirmed  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${summary.Global.TotalConfirmed}</div>
-<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Deaths  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${summary.Global.TotalDeaths}</div>
-<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> New Confirmed  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${summary.Global.NewConfirmed}</div>
-<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> New Death  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${summary.Global.NewDeaths}</div>`
-
-document.querySelector("#worldCard").innerHTML = worldCard;
-
-
-(async () => {
-
-  const topology = await fetch(
-    'https://code.highcharts.com/mapdata/custom/world.topo.json'
-  ).then(response => response.json());
-
-  Highcharts.getJSON(`https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population.json`, function (data) {
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    
+    for (var i = 0; i < data.Countries.length; i++) {
+      newObj[i] = { code: data.Countries[i].CountryCode, total: data.Countries[i].TotalConfirmed }
+    }
 
 
 
-    for (var j = 0; j < data.length; j++) {
-      for (var i = 0; i < newObj.length; i++) {
-        if (data[j].code == newObj[i].code) {
-          data[j].z = newObj[i].total;
+    var worldCard = `<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Confirmed  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${data.Global.TotalConfirmed}</div>
+<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Deaths  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${data.Global.TotalDeaths}</div>
+<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> New Confirmed  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${data.Global.NewConfirmed}</div>
+<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> New Death  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${data.Global.NewDeaths}</div>`
+
+    document.querySelector("#worldCard").innerHTML = worldCard;
+
+
+
+    
+
+
+  (async () => {
+
+    const topology = await fetch(
+      'https://code.highcharts.com/mapdata/custom/world.topo.json'
+    ).then(response => response.json());
+
+    Highcharts.getJSON(`https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population.json`, function (data) {
+
+
+
+      for (var j = 0; j < data.length; j++) {
+        for (var i = 0; i < newObj.length; i++) {
+          if (data[j].code == newObj[i].code) {
+            data[j].z = newObj[i].total;
+          }
+
         }
 
       }
 
-    }
+      Highcharts.mapChart('worldMap', {
+        chart: {
+          borderWidth: 1,
+          map: topology
+        },
 
-    Highcharts.mapChart('worldMap', {
-      chart: {
-        borderWidth: 1,
-        map: topology
-      },
+        title: {
+          text: 'Total Cases up To date'
+        },
 
-      title: {
-        text: 'Total Cases up To date'
-      },
+        subtitle: {
+          text: ''
+        },
 
-      subtitle: {
-        text: ''
-      },
+        accessibility: {
+          description: 'We see how Usa and Europ by far are the countries with the largest cases.'
+        },
 
-      accessibility: {
-        description: 'We see how Usa and Europ by far are the countries with the largest cases.'
-      },
+        legend: {
+          enabled: false
+        },
 
-      legend: {
-        enabled: false
-      },
+        mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+            verticalAlign: 'bottom'
+          }
+        },
 
-      mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-          verticalAlign: 'bottom'
-        }
-      },
+        mapView: {
+          fitToGeometry: {
+            type: 'MultiPoint',
+            coordinates: [
+              // Alaska west
+              [-164, 54],
+              // Greenland north
+              [-35, 84],
+              // New Zealand east
+              [179, -38],
+              // Chile south
+              [-68, -55]
+            ]
+          }
+        },
 
-      mapView: {
-        fitToGeometry: {
-          type: 'MultiPoint',
-          coordinates: [
-            // Alaska west
-            [-164, 54],
-            // Greenland north
-            [-35, 84],
-            // New Zealand east
-            [179, -38],
-            // Chile south
-            [-68, -55]
-          ]
-        }
-      },
-
-      series: [{
-        name: 'Countries',
-        color: '#E0E0E0',
-        enableMouseTracking: false
-      }, {
-        type: 'mapbubble',
-        name: 'Total cases',
-        joinBy: ['iso-a2', 'code'],
-        data: data,
-        minSize: 4,
-        maxSize: '12%',
-        tooltip: {
-          pointFormat: `{point.properties.name}: {point.z} people`
-        }
-      }]
+        series: [{
+          name: 'Countries',
+          color: '#E0E0E0',
+          enableMouseTracking: false
+        }, {
+          type: 'mapbubble',
+          name: 'Total cases',
+          joinBy: ['iso-a2', 'code'],
+          data: data,
+          minSize: 4,
+          maxSize: '12%',
+          tooltip: {
+            pointFormat: `{point.properties.name}: {point.z} people`
+          }
+        }]
+      });
     });
-  });
 
 
-})();
+  })();
 
 
 
@@ -124,9 +119,9 @@ var total;
 var Country;
 
 
-for (var i = 0; i < summary.Countries.length; i++) {
-  total = summary.Countries[i].TotalConfirmed;
-  Country = summary.Countries[i].Country;
+for (var i = 0; i < data.Countries.length; i++) {
+  total = data.Countries[i].TotalConfirmed;
+  Country = data.Countries[i].Country;
   obj[`${Country}`] = total;
 }
 
@@ -145,8 +140,8 @@ sortable.sort(function (a, b) {
 var List = document.querySelector("#c");
 
 
-for (var i = 0; i < summary.Countries.length; i++) {
-  var countryList = `<li id="${summary.Countries[i].Country}"> <span>  ${sortable[i][0]}</span> 
+for (var i = 0; i < data.Countries.length; i++) {
+  var countryList = `<li id="${data.Countries[i].Country}"> <span>  ${sortable[i][0]}</span> 
     <div class="progress">
       <div class="progress-bar" role="progressbar" style="width:${Number(sortable[i][1]) / 200000}px;" ></div>
         <span style="margin-left:10px"> ${sortable[i][1]}
@@ -154,12 +149,17 @@ for (var i = 0; i < summary.Countries.length; i++) {
      </li>`
 
 
-  var country = `<option value="${summary.Countries[i].Country}">`
+  var country = `<option value="${data.Countries[i].Country}">`
   List.innerHTML += country;
 
   ul.innerHTML += countryList;
 
 }
+  })
+  .catch(error => console.error(error))
+
+  console.log(newObj)
+
 
 
 
@@ -176,9 +176,9 @@ function fun() {
 
 
   var countryInput = document.querySelector("#countryInput").value;
-  
 
-  
+
+
 
 
   var url2 = (`https://api.covid19api.com/country/${countryInput}`);
@@ -191,156 +191,156 @@ function fun() {
 
       document.querySelector("#Cname").innerHTML = ` <h3>  <img src="https://www.countryflagicons.com/FLAT/64/${data[0].CountryCode}.png" alt=""> <span> ${countryInput}  </span> <h3> `
 
-   var year;
+      var year;
 
-  var year2020Confirmed = 0;
-  var year2020Deaths = 0;
-  var year2020Recovered = 0;
-  var year2020Active = 0;
-
-
-  var year2021Confirmed = 0;
-  var year2021Deaths = 0;
-  var year2021Recovered = 0;
-  var year2021Active = 0;
-
-  var year2022Confirmed = 0;
-  var year2022Deaths = 0;
-  var year2022Recovered = 0;
-  var year2022Active = 0;
-
-  var year2023Confirmed = 0;
-  var year2023Deaths = 0;
-  var year2023Recovered = 0;
-  var year2023Active = 0;
+      var year2020Confirmed = 0;
+      var year2020Deaths = 0;
+      var year2020Recovered = 0;
+      var year2020Active = 0;
 
 
+      var year2021Confirmed = 0;
+      var year2021Deaths = 0;
+      var year2021Recovered = 0;
+      var year2021Active = 0;
 
-  for (var i = 0; i < data.length; i++) {
-    year = data[i].Date;
+      var year2022Confirmed = 0;
+      var year2022Deaths = 0;
+      var year2022Recovered = 0;
+      var year2022Active = 0;
 
-    if (Number(year.slice(0, 4)) == 2020) {
-      year2020Confirmed = data[i].Confirmed;
-      year2020Deaths = data[i].Deaths;
-      year2020Recovered = data[i].Recovered;
-      year2020Active = data[i].Active;
-
-      
-
-    }
-    else if (Number(year.slice(0, 4)) == 2021) {
-      year2021Confirmed = data[i].Confirmed;
-      year2021Deaths = data[i].Deaths;
-      year2021Recovered = data[i].Recovered;
-      year2021Active = data[i].Active;
-
-    }
-    else if (Number(year.slice(0, 4)) == 2022) {
-      year2022Confirmed = data[i].Confirmed;
-      year2022Deaths = data[i].Deaths;
-      year2022Recovered = data[i].Recovered;
-      year2022Active = data[i].Active;
-
-    }
-    else if (Number(year.slice(0, 4)) == 2023) {
-      year2023Confirmed = data[i].Confirmed;
-      year2023Deaths = data[i].Deaths;
-      year2023Recovered = data[i].Recovered;
-      year2023Active = data[i].Active;
-
-    }
+      var year2023Confirmed = 0;
+      var year2023Deaths = 0;
+      var year2023Recovered = 0;
+      var year2023Active = 0;
 
 
-  }
+
+      for (var i = 0; i < data.length; i++) {
+        year = data[i].Date;
+
+        if (Number(year.slice(0, 4)) == 2020) {
+          year2020Confirmed = data[i].Confirmed;
+          year2020Deaths = data[i].Deaths;
+          year2020Recovered = data[i].Recovered;
+          year2020Active = data[i].Active;
 
 
-  var TotalConfirmed = year2023Confirmed;
-  var TotalDeaths =  year2023Deaths;
-  var TotalRecoverd =  year2023Recovered;
-  var TotalActive = year2023Active;
 
-  var cards = document.querySelector("#cards");
-  cards.innerHTML = "";
+        }
+        else if (Number(year.slice(0, 4)) == 2021) {
+          year2021Confirmed = data[i].Confirmed;
+          year2021Deaths = data[i].Deaths;
+          year2021Recovered = data[i].Recovered;
+          year2021Active = data[i].Active;
 
-  var card = `<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Confirmed  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${TotalConfirmed}</div>
+        }
+        else if (Number(year.slice(0, 4)) == 2022) {
+          year2022Confirmed = data[i].Confirmed;
+          year2022Deaths = data[i].Deaths;
+          year2022Recovered = data[i].Recovered;
+          year2022Active = data[i].Active;
+
+        }
+        else if (Number(year.slice(0, 4)) == 2023) {
+          year2023Confirmed = data[i].Confirmed;
+          year2023Deaths = data[i].Deaths;
+          year2023Recovered = data[i].Recovered;
+          year2023Active = data[i].Active;
+
+        }
+
+
+      }
+
+
+      var TotalConfirmed = year2023Confirmed;
+      var TotalDeaths = year2023Deaths;
+      var TotalRecoverd = year2023Recovered;
+      var TotalActive = year2023Active;
+
+      var cards = document.querySelector("#cards");
+      cards.innerHTML = "";
+
+      var card = `<div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Confirmed  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${TotalConfirmed}</div>
                 <div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Deaths  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${TotalDeaths}</div>
                 <div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Recoverd  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${TotalRecoverd}</div>
                 <div class="card bg-danger col-lg shadow-lg"> <h5 class="text-white" style="text-align:center;"> Total Active  </h4>   <span style="color:white;text-align:center;font-size:20px"> ${TotalActive}</div>`
 
-  cards.innerHTML += card;
+      cards.innerHTML += card;
 
 
-  Highcharts.chart('Chart1', {
-    chart: {
-      type: 'area'
-    },
-    accessibility: {
-      description: ''
-    },
-    title: {
-      text: `${countryInput}'s Status`
-    },
-    subtitle: {
-      text: 'By clickig the colores buttons below you can disable the status u dont want.'
-    },
-    xAxis: {
-      allowDecimals: false,
-      labels: {
-        formatter: function () {
-          return this.value; // clean, unformatted number for year
-        }
-      },
-      accessibility: {
-        rangeDescription: ''
-      }
-    },
-    yAxis: {
-      title: {
-        text: 'Peopels'
-      },
-      labels: {
-        formatter: function () {
-          return this.value / 1000 + 'k';
-        }
-      }
-    },
-    tooltip: {
-      pointFormat: '{series.name}<br><b>{point.y:,.0f}'
-    },
-    plotOptions: {
-      area: {
-        pointStart: 2020,
-        marker: {
-          enabled: false,
-          symbol: 'circle',
-          radius: 2,
-          states: {
-            hover: {
-              enabled: true
+      Highcharts.chart('Chart1', {
+        chart: {
+          type: 'area'
+        },
+        accessibility: {
+          description: ''
+        },
+        title: {
+          text: `${countryInput}'s Status`
+        },
+        subtitle: {
+          text: 'By clickig the colores buttons below you can disable the status u dont want.'
+        },
+        xAxis: {
+          allowDecimals: false,
+          labels: {
+            formatter: function () {
+              return this.value; // clean, unformatted number for year
+            }
+          },
+          accessibility: {
+            rangeDescription: ''
+          }
+        },
+        yAxis: {
+          title: {
+            text: 'Peopels'
+          },
+          labels: {
+            formatter: function () {
+              return this.value / 1000 + 'k';
             }
           }
-        }
-      }
-    },
-    series: [{
-      name: 'Confirmed',
-      data: [Number(year2020Confirmed), Number(year2021Confirmed), Number(year2022Confirmed), Number(year2023Confirmed)]
-    }, {
-      name: 'Deaths',
-      data: [Number(year2020Deaths), Number(year2021Deaths), Number(year2022Deaths), Number(year2023Deaths)]
-    }, {
-      name: 'Recovered',
-      data: [Number(year2020Recovered), Number(year2021Recovered), Number(year2022Recovered), Number(year2023Recovered)]
-    }, {
-      name: 'Active',
-      data: [Number(year2020Active), Number(year2021Active), Number(year2022Active), Number(year2023Active)]
-    }]
-  });
-      
+        },
+        tooltip: {
+          pointFormat: '{series.name}<br><b>{point.y:,.0f}'
+        },
+        plotOptions: {
+          area: {
+            pointStart: 2020,
+            marker: {
+              enabled: false,
+              symbol: 'circle',
+              radius: 2,
+              states: {
+                hover: {
+                  enabled: true
+                }
+              }
+            }
+          }
+        },
+        series: [{
+          name: 'Confirmed',
+          data: [Number(year2020Confirmed), Number(year2021Confirmed), Number(year2022Confirmed), Number(year2023Confirmed)]
+        }, {
+          name: 'Deaths',
+          data: [Number(year2020Deaths), Number(year2021Deaths), Number(year2022Deaths), Number(year2023Deaths)]
+        }, {
+          name: 'Recovered',
+          data: [Number(year2020Recovered), Number(year2021Recovered), Number(year2022Recovered), Number(year2023Recovered)]
+        }, {
+          name: 'Active',
+          data: [Number(year2020Active), Number(year2021Active), Number(year2022Active), Number(year2023Active)]
+        }]
+      });
+
     })
     .catch(error => console.error(error))
 
-   
+
 
 
 }
