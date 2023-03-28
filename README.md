@@ -1,1 +1,1 @@
-# Covid_Analisis_-clone
+# Covid_Analisis_Dashboard
