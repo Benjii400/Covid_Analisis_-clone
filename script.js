@@ -37,9 +37,7 @@ fetch(url)
           if (data[j].code == newObj[i].code) {
             data[j].z = newObj[i].total;
           }
-
         }
-
       }
 
       Highcharts.mapChart('worldMap', {
